@@ -39,9 +39,6 @@ jobs:
           path: |
             . 
             !venv/
-      
-      - name: Run app
-        run: python app.py
 
   deploy:
     runs-on: ubuntu-latest
