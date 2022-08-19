@@ -37,13 +37,14 @@ body {
 .long-button {
     background: var(--geo-white);
     border-color: var(--light-border);
-    height: 100px;
+    height: 80px;
 }
 
 
 .stack {
     display: flex;
     flex-direction: column;
+    margin-left: 12px;
 }
 
 .flex {
@@ -51,20 +52,27 @@ body {
 }
 
 .icon-background {
-    height: -webkit-fill-available;
+    height: 60%;
     border: none;
+    margin-top: 15px;
+    margin-left: 0px;
 }
 
 .button-title {
     position: absolute;
-    margin-top: 20px;
-    font-size: 25px;
+    margin-top: 15px;
+    font-size: 15px;
     color: var(--gray-font);
 }
 
 .button-subtitle {
     position: absolute;
-    margin-top: 55px;
-    font-size: 20px;
+    margin-top: 40px;
+    font-size: 14px;
     color: var(--gray-font);
+    opacity: 80%;
+}
+
+.modal-shift {
+    margin-top: 20%;
 }

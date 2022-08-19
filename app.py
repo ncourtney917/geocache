@@ -14,7 +14,7 @@ app = dash_app.server
 header_path = 'assets/geocache_header.png'
 header_img = html.Img(src=header_path, className="fullscreen")
 
-map_path = 'assets/bartholdi_map.png'
+map_path = 'assets/map_with_marker.png'
 map_img = html.Img(src=map_path, className="fullscreen")
 title = html.H1("Bartholdi's Bounty")
 subtitle = html.P("GCHU783H - Traditional")
@@ -39,7 +39,7 @@ description = html.Button(
         description_icon,
         html.Div([
             html.P("Description", className="button-title"), 
-            html.P("Bartholdi Park was named after French Sculptor...", className="button-subtitle")
+            html.P("Bartholdi Park was named after...", className="button-subtitle")
         ], className="stack")
     ],
     className="fullscreen long-button flex", style={"margin-top":"20px"},
@@ -55,6 +55,7 @@ hint_modal = dbc.Modal(
         dbc.ModalBody("If you get weary, take a seat and rest for a minute.", style={"white-space": "pre-line"})
     ],
     is_open=False,
+    className="modal-shift",
     id="hint-modal"
 )
 
@@ -64,6 +65,7 @@ message_modal = dbc.Modal(
         dbc.ModalBody("Messages unavailable at this time. Please try again later.", style={"white-space": "pre-line"})
     ],
     is_open=False,
+    className="modal-shift",
     id="message-modal"
 )
 
@@ -83,6 +85,7 @@ description_modal = dbc.Modal(
 )
     ],
     is_open=False,
+    className="modal-shift",
     id="description-modal"
 )
 
