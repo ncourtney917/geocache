@@ -78,15 +78,29 @@ description_modal = dbc.Modal(
                 
                 The park was renovated in 2016 as a Sustainable SITES Initiative project, which emphasizes sustainable gardening in 5 key areas: water, plants, soil, materials, and human health. Rain gardens capture 100% of rainfall on the site, up to 4,000 cubic feet at a time, equivalent to 256 bathtubs of water.
 
-                Learn more about the sustainability effort at usbg.gov/bartholdi-fountain-and-gardens
+                Learn more about the sustainability effort at:
 
-                https://www.nps.gov/findapark/index.html
+                usbg.gov/bartholdi-fountain-and-gardens
             """, style={"white-space": "pre-line"}
 )
     ],
     is_open=False,
     className="modal-shift",
     id="description-modal"
+)
+
+location_button = dbc.Button(id="location-button", className="fullscreen footer", color="success")
+
+location_modal = dbc.Modal(
+    [
+        dbc.ModalHeader(html.H2("Current Location")),
+        dbc.ModalBody(
+            "test", id="location"
+        )
+    ],
+    is_open=False,
+    className="modal-shift",
+    id="location-modal"
 )
 
 @dash_app.callback(
@@ -98,6 +112,20 @@ def open_hint(n):
     if n:
         return True
     return False
+
+@dash_app.callback(
+    Output("location-modal", "is_open"),
+    Output("location","children"),
+    Input("location-button", "n_clicks"),
+    prevent_initial_call=True
+)
+def open_hint(n):
+    location = g.latlng
+    if n:
+        return True, location
+    return False, location
+
+
 
 @dash_app.callback(
     Output("description-modal", "is_open"),
@@ -130,6 +158,8 @@ dash_app.layout = html.Div([
     description,
     description_modal,
     cache_bottom,
+    location_button,
+    location_modal
 ])
 
 

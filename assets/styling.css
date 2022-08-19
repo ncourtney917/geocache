@@ -55,13 +55,13 @@ body {
     height: 60%;
     border: none;
     margin-top: 15px;
-    margin-left: 0px;
+    margin-left: -5px;
 }
 
 .button-title {
     position: absolute;
     margin-top: 15px;
-    font-size: 15px;
+    font-size: 17px;
     color: var(--gray-font);
 }
 
@@ -75,4 +75,9 @@ body {
 
 .modal-shift {
     margin-top: 20%;
+}
+
+.footer {
+    background-color: var(--default-green);
+    height: 50px;
 }
