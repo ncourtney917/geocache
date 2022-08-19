@@ -1,0 +1,18 @@
+:root {
+    --default-green: #0c8a1b;
+}
+
+.centered {
+    text-align: center;
+}
+
+.fullscreen {
+    width: 100%;
+}
+
+.button-style, .btn-primary:hover, .btn-primary:target{
+    background: var(--default-green);
+    border-color: var(--default-green);
+    width: 200px;
+    margin: 10px;
+}
