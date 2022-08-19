@@ -4,6 +4,7 @@ from dash import html, dcc
 from dash.dependencies import Input, Output
 import plotly.express as px
 import geocoder
+import folium
 
 g = geocoder.ip('me')
 
@@ -15,7 +16,7 @@ header_path = 'assets/geocache_header.png'
 header_img = html.Img(src=header_path, className="fullscreen")
 
 map_path = 'assets/map_with_marker.png'
-map_img = html.Img(src=map_path, className="fullscreen")
+map_img = html.Img(src=map_path, className="fullscreen", id="map-img")
 title = html.H1("Bartholdi's Bounty")
 subtitle = html.P("GCHU783H - Traditional")
 header = html.Div([title, subtitle], className="centered", style={"padding-top":"30px"})
@@ -89,19 +90,31 @@ description_modal = dbc.Modal(
     id="description-modal"
 )
 
-location_button = dbc.Button(id="location-button", className="fullscreen footer", color="success")
+# Create Google Maps html file of Bartholdi
+coords = [38.887012, -77.012786]
+name= "Google Sat"
+sat =  "https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&hl=en"
+m = folium.Map(location=coords, tiles=sat, zoom_start=17, max_zoom=20, attr="Google")
+icon="cube"
+icon = folium.Icon(icon=icon, prefix="fa", color="darkgreen")
 
-location_modal = dbc.Modal(
+# Add marker for cache location
+marker = folium.Marker(
+    coords,
+    icon=icon,
+).add_to(m)
+m.save("assets/geocache_map.html")
+
+map_modal = dbc.Modal(
     [
-        dbc.ModalHeader(html.H2("Current Location")),
-        dbc.ModalBody(
-            "test", id="location"
-        )
+        dbc.ModalHeader(html.H2("Bartholdi's Bounty", className="centered")),
+        dbc.ModalBody(id="map-card")
     ],
     is_open=False,
-    className="modal-shift",
-    id="location-modal"
+    fullscreen=True,
+    id="map-modal"
 )
+
 
 @dash_app.callback(
     Output("hint-modal", "is_open"),
@@ -109,22 +122,24 @@ location_modal = dbc.Modal(
     prevent_initial_call=True
 )
 def open_hint(n):
+    """Button to open Hint modal"""
     if n:
         return True
     return False
 
+
 @dash_app.callback(
-    Output("location-modal", "is_open"),
-    Output("location","children"),
-    Input("location-button", "n_clicks"),
+    Output("map-modal", "is_open"),
+    Output("map-card", "children"),
+    Input("map-img", "n_clicks"),
     prevent_initial_call=True
 )
-def open_hint(n):
-    location = g.latlng
+def open_map(n):
+    """Button to open Map modal with map html from assets folder"""
     if n:
-        return True, location
-    return False, location
-
+        map = html.Iframe(src="assets/geocache_map.html", style={"height": "100%", "width": "100%"})
+        return True, map
+    return False, []
 
 
 @dash_app.callback(
@@ -133,9 +148,11 @@ def open_hint(n):
     prevent_initial_call=True
 )
 def open_description(n):
+    """Button to open Description modal"""
     if n:
         return True
     return False
+
 
 @dash_app.callback(
     Output("message-modal", "is_open"),
@@ -143,10 +160,12 @@ def open_description(n):
     prevent_initial_call=True
 )
 def open_message(n):
+    """Button to open Message modal"""
     if n:
         return True
     return False
 
+# Create full app layout
 dash_app.layout = html.Div([
     header_img,
     map_img,
@@ -158,8 +177,7 @@ dash_app.layout = html.Div([
     description,
     description_modal,
     cache_bottom,
-    location_button,
-    location_modal
+    map_modal
 ])
 
 
