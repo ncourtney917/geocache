@@ -7,8 +7,7 @@ import geocoder
 
 g = geocoder.ip('me')
 
-dash_app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SIMPLEX])
-app = dash_app.server
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SIMPLEX])
 
 
 header_path = 'assets/geocache_header.png'
@@ -24,13 +23,39 @@ cache_info = html.Img(src=cache_info_path, className="fullscreen")
 
 main_buttons = html.Div([dbc.Button("Navigate", className="button-style"), dbc.Button("Log", className="button-style")], className="centered")
 
+hint_message = html.Div(
+    [
+    html.Button("Hint", className="halfscreen-buttons"),
+    html.Button("Message", className="halfscreen-buttons")
+    ]
+)
+
+description_icon_path = 'assets/description_icon.png'
+description_icon = html.Img(src=description_icon_path, className="icon-background")
+
+description = html.Button(
+    [
+        description_icon,
+        html.Div([
+            html.P("Description", className="button-title"), 
+            html.P("Bartholdi Park was named after French Sculptor...", className="button-subtitle")
+        ], className="stack")
+    ],
+    className="fullscreen long-button flex", style={"margin-top":"20px"}
+)
+
+cache_bottom_path = 'assets/cache_bottom.png'
+cache_bottom = html.Img(src=cache_bottom_path, className="fullscreen")
 
 
-dash_app.layout = html.Div([
+app.layout = html.Div([
     header_img,
     map_img,
     header,
-    cache_info
+    cache_info,
+    hint_message,
+    description,
+    cache_bottom
 ])
 
 
@@ -38,4 +63,4 @@ dash_app.layout = html.Div([
 
 
 if __name__ == '__main__':
-    dash_app.run_server(debug=True, )
+    app.run_server(debug=True, )

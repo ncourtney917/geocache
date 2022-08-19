@@ -1,5 +1,13 @@
 :root {
-    --default-green: #0c8a1b;
+    --default-green: #03874d;
+    --default-background: #f6f5f5;
+    --geo-white: #fefefe;
+    --light-border: #e5e4e4;
+    --gray-font: #4c4c4c;
+}
+
+body {
+    background-color: var(--default-background);
 }
 
 .centered {
@@ -10,9 +18,53 @@
     width: 100%;
 }
 
-.button-style, .btn-primary:hover, .btn-primary:target{
+.halfscreen-buttons {
+    width: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--default-green);
+    background: var(--geo-white);
+    border-color: var(--light-border);
+    height: 80px;
+}
+.button-style {
     background: var(--default-green);
     border-color: var(--default-green);
     width: 200px;
     margin: 10px;
+}
+
+.long-button {
+    background: var(--geo-white);
+    border-color: var(--light-border);
+    height: 100px;
+}
+
+
+.stack {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex {
+    display: flex;
+}
+
+.icon-background {
+    height: -webkit-fill-available;
+    border: none;
+}
+
+.button-title {
+    position: absolute;
+    margin-top: 20px;
+    font-size: 25px;
+    color: var(--gray-font);
+}
+
+.button-subtitle {
+    position: absolute;
+    margin-top: 55px;
+    font-size: 20px;
+    color: var(--gray-font);
 }
