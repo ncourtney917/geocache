@@ -39,6 +39,9 @@ jobs:
           path: |
             . 
             !venv/
+      
+      - name: Run app
+        run: python app.py
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,9 +56,6 @@ jobs:
         with:
           name: python-app
           path: .
-      
-      - name: Run app
-        run: python app.py
           
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
