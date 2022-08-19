@@ -7,7 +7,8 @@ import geocoder
 
 g = geocoder.ip('me')
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SIMPLEX])
+dash_app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SIMPLEX])
+app = dash_app.server
 
 
 header_path = 'assets/geocache_header.png'
@@ -85,7 +86,7 @@ description_modal = dbc.Modal(
     id="description-modal"
 )
 
-@app.callback(
+@dash_app.callback(
     Output("hint-modal", "is_open"),
     Input("hint-button", "n_clicks"),
     prevent_initial_call=True
@@ -95,7 +96,7 @@ def open_hint(n):
         return True
     return False
 
-@app.callback(
+@dash_app.callback(
     Output("description-modal", "is_open"),
     Input("description-button", "n_clicks"),
     prevent_initial_call=True
@@ -105,7 +106,7 @@ def open_description(n):
         return True
     return False
 
-@app.callback(
+@dash_app.callback(
     Output("message-modal", "is_open"),
     Input("message-button", "n_clicks"),
     prevent_initial_call=True
@@ -115,7 +116,7 @@ def open_message(n):
         return True
     return False
 
-app.layout = html.Div([
+dash_app.layout = html.Div([
     header_img,
     map_img,
     header,
@@ -133,4 +134,4 @@ app.layout = html.Div([
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True, )
+    dash_app.run_server(debug=True, )
